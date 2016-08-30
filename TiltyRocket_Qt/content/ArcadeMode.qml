@@ -30,6 +30,8 @@ Rectangle
     property bool debugMode: false
     property bool gameOver: false
 
+    property alias rocketYaw: rocketAccel.yaw
+
     property alias rocketX: redRocket.x
     property alias rocketY: redRocket.y
     property alias rocketWidth: redRocket.width
@@ -74,6 +76,38 @@ Rectangle
         }
         //console.log("Active Asteroids: " + activeAsteroids +"    Total Asteroids: "+totalAsteroids + additionalAsteroids)
     }
+    Accelerometer
+    {
+        id: rocketAccel
+        dataRate: 100
+        active: true
+
+        property real yaw
+        function calcYaw(x,y,z)
+        {
+            return -(Math.atan(x / Math.sqrt(y * y + z * z)) * 57.2957795);
+        }
+        onReadingChanged:
+        {
+
+            yaw = (calcYaw(rocketAccel.reading.x, rocketAccel.reading.y, rocketAccel.reading.z)* 0.2)
+
+            if(Math.abs(yaw) < 0.2) /*create a small dead band */
+            {
+                redRocket.rotation = redRocket.rotation;
+            }
+            else if(yaw < 0)
+            {
+                redRocket.rotation = redRocket.rotation < 45 ? redRocket.rotation - (yaw) : redRocket.rotation
+            }
+            else
+            {
+                redRocket.rotation = redRocket.rotation > -45 ? redRocket.rotation - (yaw) : redRocket.rotation
+            }
+
+            Creator.updatePositions();
+        }
+    }
 
     Rectangle
     {
@@ -110,35 +144,7 @@ Rectangle
         /**** Debuging ****/
 
         //onRotationChanged: console.log(activeAsteroids)
-        Accelerometer
-        {
-            id: rocketAccel
-            dataRate: 100
-            active: true
 
-            function calcRoll(x,y,z)
-            {
-                return -(Math.atan(x / Math.sqrt(y * y + z * z)) * 57.2957795);
-            }
-            onReadingChanged:
-            {
-
-                var roll = (calcRoll(rocketAccel.reading.x, rocketAccel.reading.y, rocketAccel.reading.z)* 0.2)
-
-                if(Math.abs(roll) < 0.2) /*create a small dead band */
-                {
-                    redRocket.rotation = redRocket.rotation;
-                }
-                else if(roll < 0)
-                {
-                    redRocket.rotation = redRocket.rotation < 45 ? redRocket.rotation - (roll ) : redRocket.rotation
-                }
-                else
-                {
-                    redRocket.rotation = redRocket.rotation > -45 ? redRocket.rotation - (roll ) : redRocket.rotation
-                }
-            }
-        }
         Image
         {
             anchors.fill: redRocket

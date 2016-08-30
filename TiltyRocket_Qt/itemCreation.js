@@ -39,6 +39,16 @@ function createItem() {
     return draggedItem;
 }
 
+function updatePositions()
+{
+    if(draggedItem == null)
+        return;
+    else
+    {
+    draggedItem.x = draggedItem.x + rocketYaw;
+    }
+}
+
 function checkGameOver()
 {
     if (draggedItem == null)

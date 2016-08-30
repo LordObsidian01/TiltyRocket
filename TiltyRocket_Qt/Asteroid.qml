@@ -106,7 +106,7 @@ Image
 
             if(created)
             {
-                rootAsteroid.x += roll
+                //rootAsteroid.x += roll
                 if(mainWindow.gameOver)
                 {
                     rootAsteroid.created = false;
