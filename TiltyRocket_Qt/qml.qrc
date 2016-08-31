@@ -1,12 +1,13 @@
 <RCC>
     <qresource prefix="/">
-        <file>Asteroid.qml</file>
         <file>itemCreation.js</file>
         <file>databaseManager.js</file>
         <file>content/Dialog.qml</file>
         <file>TiltyRocket.js</file>
         <file>content/ArcadeMode.qml</file>
         <file>content/ScoreBoard.qml</file>
+        <file>TiltyRocket.qml</file>
+        <file>content/Asteroid.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/ball.png</file>

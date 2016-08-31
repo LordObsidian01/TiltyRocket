@@ -59,7 +59,7 @@ Image
     onXChanged:
     {
         rootAsteroid.collision = checkCollission(rootAsteroid.x, (arcadeWindow.height-rootAsteroid.y))
-        console.log(x + ", " + calcRocketX + ", " + y + ", " + calcRocketY)
+        //console.log(x + ", " + calcRocketX + ", " + y + ", " + calcRocketY)
         //console.log(h + ", " + a + ", " + m + ", " + Math.sin(a))
         //console.log(leftCheck + ", " + rightCheck + ", " + topCheck + ", " + bottomCheck)
         /* Should probably put an animation here so they don't just disappear */

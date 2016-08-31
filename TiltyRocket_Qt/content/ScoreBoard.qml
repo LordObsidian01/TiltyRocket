@@ -52,14 +52,7 @@ Item
             anchors.horizontalCenter: parent.horizontalCenter
             text: "Leaderboard"
         }
-//        Text
-//        {
-//            id: leaderboard
-//            anchors.top: leaderBoardTitle.bottom
-//            anchors.right: parent.horizontalCenter
-//            verticalAlignment: Text.AlignVCenter
-//            horizontalAlignment: Text.AlignRight
-//        }
+
         Rectangle
         {
             anchors.horizontalCenter: parent.horizontalCenter

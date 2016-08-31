@@ -1,5 +1,6 @@
 import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick.Controls 1.4
+import QtQuick.Controls.Styles 1.4
 
 import "content"
 import "databaseManager.js" as TestManager
@@ -83,11 +84,26 @@ ApplicationWindow
                 anchors.topMargin: arcadeModeButton.height
                 text: qsTr("Arcade Mode")
                 visible: true
+                style: ButtonStyle {
+                        background: Rectangle {
+                            implicitWidth: menuWindow.buttonWidth
+                            implicitHeight: menuWindow.buttonHeight
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                            }
+                        }
+                }
 
                 onClicked:
                 {
+                    console.log("Entering ArcadeMode")
                     Qt.createComponent("content/ArcadeMode.qml").createObject(home, {});
                     homeWindow.visible = false;
+                    console.log("Closing Menu")
                 }
             }
 
@@ -101,6 +117,19 @@ ApplicationWindow
                 anchors.topMargin: settingsButton.height
                 text: qsTr("Settings")
                 visible: true
+                style: ButtonStyle {
+                        background: Rectangle {
+                            implicitWidth: menuWindow.buttonWidth
+                            implicitHeight: menuWindow.buttonHeight
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                            }
+                        }
+                }
 
                 onClicked:
                 {
@@ -117,6 +146,19 @@ ApplicationWindow
                 anchors.topMargin: aboutButton.height
                 text: qsTr("About")
                 visible: true
+                style: ButtonStyle {
+                        background: Rectangle {
+                            implicitWidth: menuWindow.buttonWidth
+                            implicitHeight: menuWindow.buttonHeight
+                            border.width: control.activeFocus ? 2 : 1
+                            border.color: "#888"
+                            radius: 4
+                            gradient: Gradient {
+                                GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                                GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
+                            }
+                        }
+                }
 
                 onClicked:
                 {

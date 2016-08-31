@@ -19,7 +19,7 @@ function loadComponent() {
         return;
     }
 
-    itemComponent = Qt.createComponent("Asteroid.qml");
+    itemComponent = Qt.createComponent("content/Asteroid.qml");
     if (itemComponent.status === Component.Loading)  //Depending on the content, it can be ready or error immediately
         component.statusChanged.connect(createItem);
     else
@@ -28,7 +28,7 @@ function loadComponent() {
 
 function createItem() {
     if (itemComponent.status === Component.Ready && draggedItem == null) {
-        draggedItem = itemComponent.createObject(arcadeWindow, {"image": "images/resources/ball.png", "x": startPos, "y": -60, "z": 3});
+        draggedItem = itemComponent.createObject(arcadeWindow, {"source":"images/resources/ball.png", "x": startPos, "y": -60, "z": 3});
     }
     else if (itemComponent.status === Component.Error)
     {

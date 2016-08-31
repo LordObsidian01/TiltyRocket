@@ -6,9 +6,6 @@ import QtQuick.Window 2.2
 import QtSensors 5.0
 
 import "../content"
-//import "Asteroid.qml"
-//import "Dialog.qml"
-//import "ScoreBoard.qml"
 
 import "../itemCreation.js" as Creator
 import "../TiltyRocket.js" as TiltyRocket
@@ -44,11 +41,8 @@ Rectangle
 
     property alias scoreText  : scoreBoard.scoreText
     property alias playerText : scoreBoard.playerText
-//    property alias leaderBoard: scoreBoard.leaderBoard
     property alias highNames  : scoreBoard.highNames
     property alias highScores : scoreBoard.highScores
-
-    property alias leaderBoard: scoreBoard.leaderBoard
 
     // property alias mouseModeRate: gameModeMouse.mouseRate
     onGameOverChanged:
@@ -111,8 +105,6 @@ Rectangle
             {
                 redRocket.rotation = redRocket.rotation > -45 ? redRocket.rotation - (yaw) : redRocket.rotation
             }
-
-            Creator.updatePositions();
         }
     }
 
@@ -247,17 +239,17 @@ Rectangle
         text: qsTr("Blast Off!")
         visible: true
         style: ButtonStyle {
-                background: Rectangle {
-                    implicitWidth: menuWindow.buttonWidth
-                    implicitHeight: menuWindow.buttonHeight
-                    border.width: control.activeFocus ? 2 : 1
-                    border.color: "#888"
-                    radius: 4
-                    gradient: Gradient {
-                        GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
-                        GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
-                    }
+            background: Rectangle {
+                implicitWidth: menuWindow.buttonWidth
+                implicitHeight: menuWindow.buttonHeight
+                border.width: control.activeFocus ? 2 : 1
+                border.color: "#888"
+                radius: 4
+                gradient: Gradient {
+                    GradientStop { position: 0 ; color: control.pressed ? "#ccc" : "#eee" }
+                    GradientStop { position: 1 ; color: control.pressed ? "#aaa" : "#ccc" }
                 }
+            }
         }
 
         onClicked:
