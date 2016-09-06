@@ -131,75 +131,16 @@ Rectangle
         MouseArea { anchors.fill: parent; onClicked: { scope.focus = true } }
     }*/
 
-    Rectangle
+    Rocket
     {
         id: redRocket
-        width: arcadeWindow.width/5
-        height: redRocket.width * 2
-        smooth: true
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: redRocket.height/5
 
-        property real centerX: arcadeWindow.width / 2
-        property real centerY: arcadeWindow.height / 2
-        property real redRocketCenter: redRocket.width / 2
-        property real rocketMargin: redRocket.width /3
-        x: centerX - redRocketCenter
-        y: arcadeWindow.height - (redRocket.height + redRocket.width/4)
-        transform: Rotation { origin.x: redRocket.width/2; origin.y: 200; axis { x: 0; y: 0; z: 1 } angle: contMouse.mouseAngleCalc }
-
-        /**** Debuging ****/
-        Rectangle
-        {
-            anchors.fill: redRocket
-            anchors.leftMargin: parent.rocketMargin-35
-            anchors.rightMargin: parent.rocketMargin-35
-
-            anchors.onFillChanged: anchors.fill = redRocket
-            border.width: 5
-            border.color: "magenta"
-
-            MouseArea
-            {
-                anchors.fill: parent
-
-                onClicked: arcadeWindow.gameOver = true
-            }
-        }
-
-        /**** Debugging ****/
-        //onRotationChanged: console.log(activeAsteroids)
-
-        AnimatedImage
-        {
-            anchors.fill: redRocket
-            source: "../images/resources/JunkRocket.gif"
-        }
-
-        Behavior on rotation
-        {
-            SmoothedAnimation
-            {
-                easing.type: Easing.Linear
-                duration: 100
-            }
-        }
-
-        Behavior on y
-        {
-            SmoothedAnimation
-            {
-                easing.type: Easing.Linear
-                duration: 100
-            }
-        }
-        Behavior on x
-        {
-            SmoothedAnimation
-            {
-                easing.type: Easing.Linear
-                duration: 100
-            }
-        }
+        tiltAngle: contMouse.mouseAngleCalc
     }
+
     onActiveAsteroidsChanged:
     {
         if(!gameOver)
@@ -263,6 +204,9 @@ Rectangle
             }
         }
     }
+
+
+
     ScoreBoard
     {
         id:scoreBoard
@@ -294,7 +238,7 @@ Rectangle
 
         onPositionChanged:
         {
-            mouseVelXCalc = ((contMouse.mouseX - redRocket.centerX)/redRocket.centerX);
+            mouseVelXCalc = ((contMouse.mouseX - redRocket.rocketCenterX)/redRocket.rocketCenterX);
             mouseAngleCalc = (45*mouseVelXCalc);
 
             //DEBUGGING

@@ -3,6 +3,9 @@ var draggedItem = null;
 var startingMouse;
 var startPos;
 
+var component;
+var sprite;
+
 function startDrop()
 {
     startPos = Math.random() * arcadeWindow.width;
@@ -61,6 +64,28 @@ function checkGameOver()
     } else {
         draggedItem.created = true;
         draggedItem = null;
+    }
+}
+
+function createSpriteObjects() {
+    component = Qt.createComponent("content/Asteroid.qml");
+    if (component.status == Component.Ready)
+        finishCreation();
+    else
+        component.statusChanged.connect(finishCreation);
+}
+
+function finishCreation() {
+    if (component.status == Component.Ready) {
+        startPos = Math.random() * home.width;
+        sprite = component.createObject(home, {"source":"images/resources/ball.png", "x": startPos, "y": 0, "z": 3});
+        if (sprite == null) {
+            // Error Handling
+            console.log("Error creating object");
+        }
+    } else if (component.status == Component.Error) {
+        // Error Handling
+        console.log("Error loading component:", component.errorString());
     }
 }
 

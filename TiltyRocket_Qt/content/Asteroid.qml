@@ -6,18 +6,16 @@ import "../itemCreation.js" as Creator
 Image
 {
     id: rootAsteroid
-    //source: "../images/resources/ball.png"
-    width: arcadeWindow.width/20
-    height: arcadeWindow.width/20
+    source: "../images/resources/ball.png"
+    width: parent.width/20
+    height: parent.width/20
     smooth: true
     property string componentFile: "Asteroid.qml"
     property bool created: false
     property real windowWidth
     property real windowHeight
-    property real h: arcadeWindow.rocketHeight
-    property real w: arcadeWindow.rocketWidth
-    property real m: arcadeWindow.rocketMargin
-    property real a: ((contMouse.mouseAngleCalc * 3.14) /180)
+    property real mouseAngle
+    property real a: ((mouseAngle * 3.14) /180)
     property double calcRocketX: 0
     property double calcRocketY: 0
 
@@ -39,12 +37,12 @@ Image
 
     function checkCollission(x,y)
     {//ball y wrong, rocket x wrong
-        calcRocketX = (arcadeWindow.width/2) + ((y - h*Math.sin(a))*Math.cos(a)) +h*Math.cos(a)
-        calcRocketY = h*Math.sin(a)+ ((Math.cos(a))*(x-h*Math.cos(a)))
-        leftCheck = ((x + width) > (calcRocketX + m));
-        rightCheck = (x < (calcRocketX + w - m));
-        topCheck = (y > calcRocketY);
-        bottomCheck = (y < (calcRocketY + h));
+//        calcRocketX = (arcadeWindow.width/2) + ((y - h*Math.sin(a))*Math.cos(a)) +h*Math.cos(a)
+//        calcRocketY = h*Math.sin(a)+ ((Math.cos(a))*(x-h*Math.cos(a)))
+//        leftCheck = ((x + width) > (calcRocketX + m));
+//        rightCheck = (x < (calcRocketX + w - m));
+//        topCheck = (y > calcRocketY);
+//        bottomCheck = (y < (calcRocketY + h));
 
         return(false)
         //return(leftCheck && rightCheck && topCheck && bottomCheck)
@@ -58,7 +56,7 @@ Image
 
     onXChanged:
     {
-        rootAsteroid.collision = checkCollission(rootAsteroid.x, (arcadeWindow.height-rootAsteroid.y))
+        //rootAsteroid.collision = checkCollission(rootAsteroid.x, (arcadeWindow.height-rootAsteroid.y))
         //console.log(x + ", " + calcRocketX + ", " + y + ", " + calcRocketY)
         //console.log(h + ", " + a + ", " + m + ", " + Math.sin(a))
         //console.log(leftCheck + ", " + rightCheck + ", " + topCheck + ", " + bottomCheck)
@@ -67,35 +65,35 @@ Image
 
     onYChanged:
     {
-        rootAsteroid.x -= (arcadeWindow.height * contMouse.mouseVelXCalc)/200;  //200 = 5000/25 (speed of y fall)
-        rootAsteroid.collision = checkCollission(rootAsteroid.x, (arcadeWindow.height-rootAsteroid.y))
+        //rootAsteroid.x -= (arcadeWindow.height * contMouse.mouseVelXCalc)/200;  //200 = 5000/25 (speed of y fall)
+        //rootAsteroid.collision = checkCollission(rootAsteroid.x, (arcadeWindow.height-rootAsteroid.y))
         /* Should probably put an animation here so they don't just disappear */
     }
 
     onCollisionChanged:
     {
-        if(collision)
-        {
-            contMouse.enabled = false
-            if(!arcadeWindow.debugMode)
-            arcadeWindow.gameOver = true;
-        }
+//        if(collision)
+//        {
+//            contMouse.enabled = false
+//            if(!arcadeWindow.debugMode)
+//            arcadeWindow.gameOver = true;
+//        }
     }
 
     onCreatedChanged:
     {
-        if (created)
-        {
-            rootAsteroid.z = 1;    // above the sky but below the ground layer
-            arcadeWindow.activeAsteroids++;
-            // once item is created, start moving offscreen
+//        if (created)
+//        {
+//            rootAsteroid.z = 1;    // above the sky but below the ground layer
+//            arcadeWindow.activeAsteroids++;
+//            // once item is created, start moving offscreen
             dropYAnim.duration = 5000; //(arcadeWindow.height) * 16;
             dropAnim.running = true;
-        }
-        else
-        {
-            arcadeWindow.activeAsteroids--;
-        }
+//        }
+//        else
+//        {
+//            arcadeWindow.activeAsteroids--;
+//        }
     }
 
     SequentialAnimation on y
@@ -107,7 +105,7 @@ Image
         NumberAnimation
         {
             id: dropYAnim
-            to: (arcadeWindow.height + rootAsteroid.height * 2)
+            to: (parent.height + rootAsteroid.height * 2)
         }
         ScriptAction
         {

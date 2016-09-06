@@ -4,6 +4,7 @@ import QtQuick.Controls.Styles 1.4
 
 import "content"
 import "databaseManager.js" as TestManager
+import "itemCreation.js" as TestCreator
 ApplicationWindow
 {
     id: home
@@ -162,12 +163,21 @@ ApplicationWindow
 
                 onClicked:
                 {
-                    TestManager.saveHighScore("Max");
-                    highScores[1] = 10;
+                    TestCreator.createSpriteObjects();
                 }
             }
         } /*menuWindow*/
     }/*homeWindow*/
+
+//    Repeater
+//    {
+//        id: asteroidRepeater
+
+//        model: 10
+//        anchors.fill: parent
+//        Asteroid {x: Math.random() * parent.width; y:0; mouseAngle: 0 }
+//    }
+
 } /*home*/
 
 /*Testing */

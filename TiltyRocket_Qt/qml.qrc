@@ -8,6 +8,7 @@
         <file>content/ScoreBoard.qml</file>
         <file>TiltyRocket.qml</file>
         <file>content/Asteroid.qml</file>
+        <file>content/Rocket.qml</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/ball.png</file>
