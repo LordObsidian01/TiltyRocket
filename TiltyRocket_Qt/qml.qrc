@@ -9,6 +9,8 @@
         <file>TiltyRocket.qml</file>
         <file>content/Asteroid.qml</file>
         <file>content/Rocket.qml</file>
+        <file>content/SimpleWorld.qml</file>
+        <file>JsWorld.js</file>
     </qresource>
     <qresource prefix="/images">
         <file>resources/ball.png</file>

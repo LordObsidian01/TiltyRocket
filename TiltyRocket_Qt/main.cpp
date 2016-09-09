@@ -4,13 +4,15 @@
 #include <QQmlEngine>
 #include <Qdir>
 
+#include "world.h"
+
 #include <QDebug>
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc,argv);
 
-    //qmlRegisterType<ScoreKeeper>("TiltyRocket", 1, 0, "ScoreKeeper");
+    qmlRegisterType<World>("TiltyRocket", 1, 0, "World");
 
     QQmlApplicationEngine engine(QUrl("qrc:/TiltyRocket.qml"));
     //qDebug() << "Default path >> "+engine.offlineStoragePath();
