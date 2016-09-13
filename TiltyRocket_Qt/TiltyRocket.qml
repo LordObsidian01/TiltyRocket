@@ -187,6 +187,8 @@ ApplicationWindow
         height: home.height
 
         delegate: Asteroid{}
+        //parentObj: simpleWorld
+        containerType: SimpleWorld{}
 
     }
     Asteroid
@@ -199,6 +201,33 @@ ApplicationWindow
     {
         id: simpleWorld
         objectName: "simpleWorld"
+
+        height: parent.height/2
+        width: height
+        windowCenterX: home.width/2
+        windowCenterY: home.height/2
+        x: (windowCenterX) - (simpleWorld.width/2)
+        //        {
+        ////            if(rootWorld.worldRight <= windowCenterX)
+        ////            {
+        ////                return rootWorld.x
+        ////            }
+        ////            else
+        ////            {
+        ////                return gameOver ? (windowCenterX) - (rootWorld.width/2) : rootWorld.x + accel.changeInX
+        ////            }
+        //        }
+        y: (windowCenterY) - (simpleWorld.height/2)
+        //        {
+        ////            if(rootWorld.worldTop >= windowCenterY)
+        ////            {
+        ////                return
+        ////            }
+        ////            else
+        ////            {
+        ////                return gameOver ? (windowCenterY) - (rootWorld.height/2) : rootWorld.y + accel.changeInY
+        ////            }
+        //        }
     }
 
 

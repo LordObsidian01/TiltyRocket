@@ -80,11 +80,22 @@ void World::setDelegate(QQmlComponent *obj)
     emit delegateChanged();
 }
 
-QQmlComponent *World::parentObj() const
+QQmlComponent *World::containerType() const
+{
+    return m_containerType;
+}
+
+void World::setContainerType(QQmlComponent *obj)
+{
+    m_containerType = obj;
+    emit containerTypeChanged();
+}
+
+QVariant *World::parentObj() const
 {
     return m_parentObj;
 }
-void World::setParentObj(QQmlComponent *obj)
+void World::setParentObj(QVariant *obj)
 {
     m_parentObj = obj;
     emit parentObjChanged();
@@ -126,11 +137,26 @@ void World::createQmlObject(const QString &name, int x, int y)
 {
     QObject *obj;
 
+    QObject *containerObj;
+    QQuickItem *container;
     if(!m_delegate)
         return;
     obj = m_delegate->create();
 
+    if(!m_parentObj)
+        return;
+
+    if(!m_containerType)
+        return;
+    containerObj = m_containerType->create();
+    container = containerObj->findChild<QQuickItem*>("QmlWorld");
+    //obj->setproperty("parent", m_parentObj);
+    //QQuickItem *test = qobject_cast<QQuickItem*>(m_parentObj->value<QObject*>());
+    //obj->setParent(qobject_cast<QQuickItem*>(m_parentObj->value<QObject*>()));
+    //obj->setParent(QVariant::fromValue<QQuickItem*>(m_parentObj->value));
     //obj->setParent(this);
+    //obj->setProperty("parent", qobject_cast<QVariant*>(m_parentObj->value<QObject*>()));
+    //obj->setProperty("parent", QVariant::fromValue<QQuickItem*>(container));
     obj->setProperty("parent", QVariant::fromValue<QQuickItem*>(this));
     obj->setProperty("x", 20);
 

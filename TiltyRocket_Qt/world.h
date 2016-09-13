@@ -16,8 +16,8 @@ class World : public QQuickItem
     Q_PROPERTY(int numYpos READ numYpos WRITE setNumYpos NOTIFY numYposChanged)
 
     Q_PROPERTY(QQmlComponent *delegate READ delegate WRITE setDelegate NOTIFY delegateChanged)
-    Q_PROPERTY(QQmlComponent *parentObj READ parentObj WRITE setParentObj NOTIFY parentObjChanged)
-
+    Q_PROPERTY(QVariant *parentObj READ parentObj WRITE setParentObj NOTIFY parentObjChanged)
+    Q_PROPERTY(QQmlComponent *containerType READ containerType WRITE setContainerType NOTIFY containerTypeChanged)
 public:
     World(QQuickItem *parent = 0);
 
@@ -39,8 +39,11 @@ public:
     QQmlComponent *delegate() const;
     void setDelegate(QQmlComponent *);
 
-    QQmlComponent *parentObj() const;
-    void setParentObj(QQmlComponent *obj);
+    QVariant *parentObj() const;
+    void setParentObj(QVariant *obj);
+
+    QQmlComponent *containerType() const;
+    void setContainerType(QQmlComponent *);
 
     void generateWorld();
 
@@ -53,7 +56,8 @@ private:
     int m_width;
     int m_height;
     QQmlComponent *m_delegate;
-    QQmlComponent *m_parentObj;
+    QQmlComponent *m_containerType;
+    QVariant *m_parentObj;
     std::vector<std::vector<int>> positions;
 
 signals:
@@ -64,6 +68,7 @@ signals:
     void parentObjChanged();
     void widthChanged();
     void heightChanged();
+    void containerTypeChanged();
 public slots:
 };
 
