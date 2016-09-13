@@ -25,6 +25,6 @@ DISTFILES += \
 FORMS +=
 
 HEADERS +=               \
-           world.h       \
-           scorekeeper.h
+           scorekeeper.h \
+    world.h
 

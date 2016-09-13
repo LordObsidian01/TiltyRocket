@@ -1,18 +1,25 @@
 #ifndef WORLD_H
 #define WORLD_H
 
+#include <QQuickItem>
+#include <QQmlComponent>
 #include <QObject>
 #include <vector>
 
-class World : public QObject
+class World : public QQuickItem
 {
     Q_OBJECT
     Q_PROPERTY(bool activeNode READ activeNode WRITE setActiveNode NOTIFY activeNodeChanged)
+    Q_PROPERTY(int width READ width WRITE setWidth NOTIFY widthChanged)
+    Q_PROPERTY(int height READ height WRITE setHeight NOTIFY heightChanged)
     Q_PROPERTY(int numXpos READ numXpos WRITE setNumXpos NOTIFY numXposChanged)
     Q_PROPERTY(int numYpos READ numYpos WRITE setNumYpos NOTIFY numYposChanged)
 
+    Q_PROPERTY(QQmlComponent *delegate READ delegate WRITE setDelegate NOTIFY delegateChanged)
+    Q_PROPERTY(QQmlComponent *parentObj READ parentObj WRITE setParentObj NOTIFY parentObjChanged)
+
 public:
-    World(QObject *parent = 0);
+    World(QQuickItem *parent = 0);
 
     bool activeNode() const;
     void setActiveNode(bool);
@@ -23,18 +30,40 @@ public:
     int numYpos() const;
     void setNumYpos(int);
 
+    int width() const;
+    void setWidth(int);
+
+    int height() const;
+    void setHeight(int n);
+
+    QQmlComponent *delegate() const;
+    void setDelegate(QQmlComponent *);
+
+    QQmlComponent *parentObj() const;
+    void setParentObj(QQmlComponent *obj);
+
     void generateWorld();
+
+    void createQmlObject(const QString &name, int x, int y);
 
 private:
     bool m_activeNode;
     int m_numXpos;
     int m_numYpos;
+    int m_width;
+    int m_height;
+    QQmlComponent *m_delegate;
+    QQmlComponent *m_parentObj;
     std::vector<std::vector<int>> positions;
 
 signals:
     void activeNodeChanged();
     void numXposChanged();
     void numYposChanged();
+    void delegateChanged();
+    void parentObjChanged();
+    void widthChanged();
+    void heightChanged();
 public slots:
 };
 

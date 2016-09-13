@@ -1,11 +1,14 @@
 #include "world.h"
 
+#include <QQmlEngine>
+#include <QQmlComponent>
+#include <QQuickView>
 #include <qglobal.h>
 #include <QTime>
 #include <QDebug>
 
-World::World(QObject *parent)
-    : QObject(parent)
+World::World(QQuickItem  *parent)
+    : QQuickItem (parent)
 {
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
@@ -30,6 +33,7 @@ void World::setNumXpos(int num)
 {
     m_numXpos = num;
     this->generateWorld();
+    emit numXposChanged();
 }
 
 int World::numYpos() const
@@ -41,6 +45,49 @@ void World::setNumYpos(int num)
 {
     m_numYpos = num;
     this->generateWorld();
+    emit numYposChanged();
+}
+
+int World::width() const
+{
+    return m_width;
+}
+
+void World::setWidth(int n)
+{
+    m_width = n;
+    emit widthChanged();
+}
+
+int World::height() const
+{
+    return m_height;
+}
+void World::setHeight(int n)
+{
+    m_height = n;
+    emit this->heightChanged();
+}
+
+QQmlComponent *World::delegate() const
+{
+    return m_delegate;
+}
+
+void World::setDelegate(QQmlComponent *obj)
+{
+    m_delegate = obj;
+    emit delegateChanged();
+}
+
+QQmlComponent *World::parentObj() const
+{
+    return m_parentObj;
+}
+void World::setParentObj(QQmlComponent *obj)
+{
+    m_parentObj = obj;
+    emit parentObjChanged();
 }
 
 void World::generateWorld()
@@ -71,6 +118,50 @@ void World::generateWorld()
             }
             qWarning() << test;
         }
+        this->createQmlObject("content/Asteroid.qml",0,0);
     }
+}
+
+void World::createQmlObject(const QString &name, int x, int y)
+{
+    QObject *obj;
+
+    if(!m_delegate)
+        return;
+    obj = m_delegate->create();
+
+    //obj->setParent(this);
+    obj->setProperty("parent", QVariant::fromValue<QQuickItem*>(this));
+    obj->setProperty("x", 20);
+
+//        QQmlEngine engine;
+//        QQmlComponent component(&engine, "content/Asteroid.qml");
+//        if(component.isNull())
+//            return;
+//        QObject *object = component.create();
+//        if(!object)
+//            return;
+//        //object->setProperty("parent", QVariant::fromValue<QQmlComponent*>(this));
+//        object->setParent(this);
+
+
+    //    // Using QQuickView
+    //    QQuickView view;
+    //    view.setSource(QUrl::fromLocalFile("content/Asteroid.qml"));
+    //    view.show();
+    //    //QObject *object = view.rootObject();
+
+//    QObject *prnt;
+//    QObject *prntObj;
+//    if(!m_parentObj)
+//        return;
+//    prntObj = m_parentObj->create();
+//    prnt = prntObj->findChild<QObject*>("simpleWorld");
+//    //obj->setParent((**this));
+
+//    //obj->setProperty("parent", QVariant::fromValue<QObject*>(this));
+
+//    if(!prnt)
+//        return;
 
 }

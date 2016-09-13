@@ -7,8 +7,8 @@ Image
 {
     id: rootAsteroid
     source: "../images/resources/ball.png"
-    width: parent.width/20
-    height: parent.width/20
+    width:  parent.width/20
+    height:20// parent.width/20
     smooth: true
     property string componentFile: "Asteroid.qml"
     property bool created: false
@@ -51,11 +51,12 @@ Image
         //        && ((y > (arcadeWindow.rocketY /*+ arcadeWindow.rocketMargin*/)) && (y < (arcadeWindow.rocketY + arcadeWindow.rocketHeight /*- arcadeWindow.rocketMargin*/))))
     }
 
-    y: -rootAsteroid.height
+    y:0// -rootAsteroid.height
 //    x: arcadeWindow.mouseModeRate + rootAsteroid.x
 
     onXChanged:
     {
+        console.log("New x Value: " + x)
         //rootAsteroid.collision = checkCollission(rootAsteroid.x, (arcadeWindow.height-rootAsteroid.y))
         //console.log(x + ", " + calcRocketX + ", " + y + ", " + calcRocketY)
         //console.log(h + ", " + a + ", " + m + ", " + Math.sin(a))
@@ -98,19 +99,19 @@ Image
 
     SequentialAnimation on y
     {
-        id: dropAnim
-        running: false
+//        id: dropAnim
+//        running: false
 
-        NumberAnimation { duration:Math.random() * 10000 }
-        NumberAnimation
-        {
-            id: dropYAnim
-            to: (parent.height + rootAsteroid.height * 2)
-        }
-        ScriptAction
-        {
-            script: { rootAsteroid.created = false; rootAsteroid.destroy() }
-        }
+//        NumberAnimation { duration:Math.random() * 10000 }
+//        NumberAnimation
+//        {
+//            id: dropYAnim
+//            to: (parent.height + rootAsteroid.height * 2)
+//        }
+//        ScriptAction
+//        {
+//            script: { rootAsteroid.created = false; rootAsteroid.destroy() }
+//        }
     }
 
     //turned this off cause the accel code was pissing me off. we need to restructure this crap

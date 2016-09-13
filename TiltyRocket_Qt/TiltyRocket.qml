@@ -172,6 +172,7 @@ ApplicationWindow
                 onClicked:
                 {
                     gameOver = !gameOver;
+                    //newWorld.createQmlObject("Asteroid.qml", 0, 0);
                 }
             }
         } /*menuWindow*/
@@ -182,51 +183,24 @@ ApplicationWindow
         id: newWorld
         numXpos: 20
         numYpos: 20
-    }
+        width: home.width
+        height: home.height
 
-    Rectangle
+        delegate: Asteroid{}
+
+    }
+    Asteroid
     {
-        id: rootWorld
-        height: parent.height/2
-        width: height
-
-        property real windowCenterX: parent.width/2
-        property real windowCenterY: parent.height/2
-        property real worldCenterX: x + rootWorld.width/2
-        property real worldCenterY: y + rootWorld.height/2
-
-        property real worldTop: y
-        property real worldBottom: y + height
-        property real worldLeft: x
-        property real worldRight: x + width
-
-
-        x:
-        {
-//            if(rootWorld.worldRight <= windowCenterX)
-//            {
-//                return rootWorld.x
-//            }
-//            else
-//            {
-                return gameOver ? (windowCenterX) - (rootWorld.width/2) : rootWorld.x + accel.changeInX
-//            }
-        }
-        y:
-        {
-            if(rootWorld.worldTop >= windowCenterY)
-            {
-                return
-            }
-            else
-            {
-                return gameOver ? (windowCenterY) - (rootWorld.height/2) : rootWorld.y + accel.changeInY
-            }
-        }
-
-        border.width: 5
-        border.color: "magenta"
+        x: 100
+        parent: simpleWorld
     }
+
+    SimpleWorld
+    {
+        id: simpleWorld
+        objectName: "simpleWorld"
+    }
+
 
     Accelerometer
     {
